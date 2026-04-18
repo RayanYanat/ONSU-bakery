@@ -86,10 +86,7 @@ function DishSlide({ item, index }: { item: typeof items[0]; index: number }) {
     <div
       ref={ref}
       className="relative flex flex-col md:flex-row"
-      style={{
-        minHeight: '90vh',
-        borderTop: '1px solid rgba(250, 247, 242, 0.06)',
-      }}
+      style={{ minHeight: '90vh' }}
     >
       <div
         className="relative overflow-hidden w-full md:w-[55%] flex-shrink-0"
@@ -107,7 +104,7 @@ function DishSlide({ item, index }: { item: typeof items[0]; index: number }) {
             src={item.image}
             alt={item.name}
             className="w-full h-full object-cover"
-            style={{ filter: 'brightness(0.82) saturate(0.9)' }}
+            style={{ filter: 'brightness(0.75) saturate(0.85)' }}
             loading="lazy"
           />
         </div>
@@ -115,8 +112,20 @@ function DishSlide({ item, index }: { item: typeof items[0]; index: number }) {
           className="absolute inset-0"
           style={{
             background: isEven
-              ? 'linear-gradient(to right, transparent 60%, #1A1612 100%)'
-              : 'linear-gradient(to left, transparent 60%, #1A1612 100%)',
+              ? 'linear-gradient(to right, rgba(26,22,18,0) 40%, rgba(26,22,18,0.6) 70%, #1A1612 100%)'
+              : 'linear-gradient(to left, rgba(26,22,18,0) 40%, rgba(26,22,18,0.6) 70%, #1A1612 100%)',
+          }}
+        />
+        <div
+          className="absolute inset-x-0 top-0 h-32 pointer-events-none"
+          style={{
+            background: 'linear-gradient(to bottom, #1A1612 0%, transparent 100%)',
+          }}
+        />
+        <div
+          className="absolute inset-x-0 bottom-0 h-24 pointer-events-none"
+          style={{
+            background: 'linear-gradient(to top, #1A1612 0%, transparent 100%)',
           }}
         />
         <div

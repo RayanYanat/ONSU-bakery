@@ -1,8 +1,7 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 
 export default function Hero() {
   const parallaxRef = useRef<HTMLDivElement>(null);
-  const [queueMin] = useState(47);
 
   useEffect(() => {
     const onScroll = () => {
@@ -109,24 +108,6 @@ export default function Hero() {
           </p>
 
           <div className="flex items-center gap-5">
-            <div
-              className="text-right"
-              style={{ borderLeft: '1px solid rgba(184, 150, 90, 0.3)', paddingLeft: '20px' }}
-            >
-              <div
-                className="font-sans font-light"
-                style={{ fontSize: '10px', letterSpacing: '0.3em', color: '#B8965A', textTransform: 'uppercase', marginBottom: '4px' }}
-              >
-                Today's wait
-              </div>
-              <div
-                className="font-serif italic"
-                style={{ fontSize: '28px', color: '#FAF7F2', lineHeight: 1 }}
-              >
-                {queueMin} min
-              </div>
-            </div>
-
             <a
               href="#menu"
               className="font-sans font-light"
