@@ -2,11 +2,11 @@ import { useEffect, useState } from 'react';
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
-  const [onDark, setOnDark] = useState(false);
+  const [onDark, setOnDark] = useState(true);
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const darkSectionIds = ['menu', 'press'];
+    const darkSectionIds = ['hero', 'menu', 'press', 'footer'];
 
     function update() {
       const y = window.scrollY;
