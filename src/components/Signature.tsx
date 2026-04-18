@@ -1,125 +1,111 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 
 const items = [
   {
-    index: '01',
     name: 'Wagyu Beef Curry Bun',
-    origin: 'Tokyo Bakery — Parisian Form',
-    description:
-      'A2 Wagyu braised low and slow in a 36-hour Kare roux, encased in a pillow-soft milk bread shell. Panko-crusted and deep-fried to a lacquered bronze. The city\'s most obsessed-over bun.',
-    note: 'Served warm. Limited daily.',
-    image: 'https://images.pexels.com/photos/1775043/pexels-photo-1775043.jpeg?auto=compress&cs=tinysrgb&w=800',
+    description: 'A paper-thin shell. Slow-cooked wagyu. Pull one fresh from the oven or don\'t bother.',
+    image: 'https://images.unsplash.com/photo-1509722747041-616f39b57569?w=800',
   },
   {
-    index: '02',
-    name: 'Salted Egg Yolk Mille Feuille',
-    origin: 'Hong Kong Soul — French Discipline',
-    description:
-      'Twelve layers of hand-laminated pâte feuilletée, caramelised on both sides. Pastry cream infused with cured salted egg yolk, finished with a mirror glaze that fractures at first touch.',
-    note: 'Best consumed within 10 minutes.',
-    image: 'https://images.pexels.com/photos/3929292/pexels-photo-3929292.jpeg?auto=compress&cs=tinysrgb&w=800',
+    name: 'Salted Egg Yolk Mille-Feuille',
+    description: 'Layers of caramelised pastry, salted egg custard, and precision.',
+    image: 'https://images.unsplash.com/photo-1612203985729-70726954388c?w=800',
   },
   {
-    index: '03',
-    name: 'Popcorn Miso Caramel Paris Brest',
-    origin: 'Umami Architecture',
-    description:
-      'Choux baked to a hollow drum, filled with Shiro miso praline crème mousseline, ribboned with burnt caramel made from popped Niigata rice. The umami here is not a note — it is the score.',
-    note: 'Gluten-aware option available.',
-    image: 'https://images.pexels.com/photos/1291712/pexels-photo-1291712.jpeg?auto=compress&cs=tinysrgb&w=800',
+    name: 'Popcorn & Miso Caramel Paris-Brest',
+    description: 'Miso caramel runs through every layer. Bold, nostalgic, intentional.',
+    image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800',
   },
   {
-    index: '04',
-    name: 'Minus 86° Coffee',
-    origin: 'Cryogenic Precision',
-    description:
-      'Single-origin Yirgacheffe drawn as an ultra-cold espresso concentrate, then nitrogen-frozen to −86°C. Served as a shattered crystalline shard over heated volcanic milk. It begins solid and ends liquid.',
-    note: 'Prepared to order. Three minutes.',
-    image: 'https://images.pexels.com/photos/302899/pexels-photo-302899.jpeg?auto=compress&cs=tinysrgb&w=800',
+    name: 'Oolong & Milk Chocolate Tart',
+    description: 'Floral, bitter, perfectly balanced. The tart that made people queue in the rain.',
+    image: 'https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=800',
+  },
+  {
+    name: 'Seaweed Croissant',
+    description: 'Umami-forward. Buttery layers with a whisper of the ocean.',
+    image: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=800',
+  },
+  {
+    name: '–86° Dirty Coffee',
+    description: 'Hot espresso poured into a glass frozen at –86°C. Shanghai\'s viral trend, now on Dean Street.',
+    image: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800',
   },
 ];
 
-function SignatureCard({ item, index }: { item: typeof items[0]; index: number }) {
-  const [hovered, setHovered] = useState(false);
+function MenuItem({ item, index }: { item: typeof items[0]; index: number }) {
   const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
     const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
-      { threshold: 0.15 }
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          el.classList.add('is-visible');
+          observer.unobserve(el);
+        }
+      },
+      { threshold: 0.1 }
     );
-    if (ref.current) observer.observe(ref.current);
+    observer.observe(el);
     return () => observer.disconnect();
   }, []);
 
   return (
     <div
       ref={ref}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      className={`group relative border border-onsu-border hover:border-onsu-gold/40 transition-all duration-700 cursor-default ${
-        visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-      }`}
-      style={{ transitionDelay: `${index * 120}ms`, transition: 'opacity 0.8s ease, transform 0.8s ease, border-color 0.4s ease' }}
+      className="reveal"
+      style={{ transitionDelay: `${(index % 2) * 120}ms` }}
     >
-      <div className="relative overflow-hidden aspect-[4/3]">
+      <div className="overflow-hidden aspect-[4/3] mb-5">
         <img
           src={item.image}
           alt={item.name}
-          className={`w-full h-full object-cover transition-transform duration-700 ${hovered ? 'scale-105' : 'scale-100'}`}
+          className="w-full h-full object-cover transition-transform duration-700 hover:scale-[1.03]"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-onsu-black via-onsu-black/20 to-transparent" />
-        <div className={`absolute inset-0 bg-onsu-black/30 transition-opacity duration-500 ${hovered ? 'opacity-0' : 'opacity-100'}`} />
-
-        <span className="absolute top-5 left-5 font-serif text-5xl font-light text-onsu-cream/20">
-          {item.index}
-        </span>
       </div>
-
-      <div className="p-6 md:p-8 bg-onsu-panel">
-        <p className="font-sans text-xs tracking-widest uppercase text-onsu-gold mb-3">
-          {item.origin}
-        </p>
-        <h3 className="font-serif text-2xl md:text-3xl font-light text-onsu-cream mb-4 leading-tight">
-          {item.name}
-        </h3>
-        <div className="w-8 h-px bg-onsu-gold/60 mb-4" />
-        <p className="font-sans text-sm font-light text-onsu-chrome leading-relaxed mb-5">
-          {item.description}
-        </p>
-        <p className="font-sans text-xs tracking-wide text-onsu-muted italic">
-          {item.note}
-        </p>
-      </div>
+      <h3 className="font-serif font-light text-onsu-cream text-2xl md:text-3xl mb-2 leading-snug">
+        {item.name}
+      </h3>
+      <p className="font-sans font-light text-onsu-cream/50 text-sm leading-relaxed">
+        {item.description}
+      </p>
     </div>
   );
 }
 
 export default function Signature() {
+  const headRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = headRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          el.classList.add('is-visible');
+          observer.unobserve(el);
+        }
+      },
+      { threshold: 0.2 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section id="menu" className="bg-onsu-black py-24 md:py-36">
-      <div className="max-w-7xl mx-auto px-6 md:px-10">
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-16 md:mb-20 gap-6">
-          <div>
-            <p className="font-sans text-xs tracking-ultra uppercase text-onsu-gold mb-4">
-              The Menu
-            </p>
-            <h2 className="font-serif font-light text-onsu-cream text-5xl md:text-7xl leading-none">
-              Signature<br />
-              <span className="italic">Pieces</span>
-            </h2>
-          </div>
-          <p className="font-sans text-sm font-light text-onsu-chrome max-w-xs leading-relaxed md:text-right">
-            Each creation exists at the intersection of culinary heritage and technical obsession. Nothing is here by accident.
-          </p>
+    <section id="menu" className="bg-onsu-bg py-24 md:py-36">
+      <div className="max-w-7xl mx-auto px-6 md:px-12">
+        <div ref={headRef} className="reveal mb-16 md:mb-20">
+          <h2 className="font-serif font-light italic text-onsu-cream text-5xl md:text-7xl leading-none">
+            The Menu
+          </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-onsu-border">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-14 md:gap-y-20">
           {items.map((item, i) => (
-            <div key={item.index} className="bg-onsu-black">
-              <SignatureCard item={item} index={i} />
-            </div>
+            <MenuItem key={item.name} item={item} index={i} />
           ))}
         </div>
       </div>
