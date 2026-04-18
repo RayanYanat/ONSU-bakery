@@ -63,7 +63,7 @@ export default function Hero() {
             className="font-serif font-light italic"
             style={{
               fontSize: 'clamp(52px, 9vw, 120px)',
-              lineHeight: 0.95,
+              lineHeight: 1.05,
               color: '#FAF7F2',
               maxWidth: '900px',
             }}
