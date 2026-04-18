@@ -5,9 +5,12 @@ export default {
     extend: {
       colors: {
         onsu: {
-          bg:    '#080806',
-          gold:  '#D4A853',
-          cream: '#F2EDE4',
+          bg:      '#080806',
+          gold:    '#D4A853',
+          cream:   '#F2EDE4',
+          ivory:   '#FAF7F2',
+          ink:     '#1A1612',
+          'brushed-gold': '#B8965A',
         },
       },
       fontFamily: {

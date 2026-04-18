@@ -2,12 +2,32 @@ import { useEffect, useState } from 'react';
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
+  const [onDark, setOnDark] = useState(false);
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 60);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
+    const darkSectionIds = ['menu', 'press'];
+
+    function update() {
+      const y = window.scrollY;
+      setScrolled(y > 60);
+
+      let dark = false;
+      for (const id of darkSectionIds) {
+        const el = document.getElementById(id);
+        if (!el) continue;
+        const rect = el.getBoundingClientRect();
+        if (rect.top <= 56 && rect.bottom > 56) {
+          dark = true;
+          break;
+        }
+      }
+      setOnDark(dark);
+    }
+
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+    return () => window.removeEventListener('scroll', update);
   }, []);
 
   const links = [
@@ -15,6 +35,16 @@ export default function Nav() {
     { label: 'About', href: '#about' },
     { label: 'Visit', href: '#visit' },
   ];
+
+  const textColor = onDark ? 'rgba(250, 247, 242, 0.5)' : 'rgba(26, 22, 18, 0.45)';
+  const textHoverColor = onDark ? '#FAF7F2' : '#1A1612';
+  const logoColor = '#B8965A';
+  const borderColor = scrolled
+    ? onDark ? 'rgba(250, 247, 242, 0.06)' : 'rgba(26, 22, 18, 0.08)'
+    : 'transparent';
+  const bgColor = scrolled
+    ? onDark ? 'rgba(26, 22, 18, 0.92)' : 'rgba(250, 247, 242, 0.92)'
+    : 'transparent';
 
   return (
     <header
@@ -24,18 +54,25 @@ export default function Nav() {
         left: 0,
         right: 0,
         zIndex: 50,
-        transition: 'background 0.5s ease, border-color 0.5s ease',
-        background: scrolled ? 'rgba(8, 8, 6, 0.9)' : 'transparent',
-        backdropFilter: scrolled ? 'blur(12px)' : 'none',
-        WebkitBackdropFilter: scrolled ? 'blur(12px)' : 'none',
-        borderBottom: scrolled ? '1px solid rgba(242, 237, 228, 0.04)' : '1px solid transparent',
+        transition: 'background 0.6s ease, border-color 0.6s ease',
+        background: bgColor,
+        backdropFilter: scrolled ? 'blur(14px)' : 'none',
+        WebkitBackdropFilter: scrolled ? 'blur(14px)' : 'none',
+        borderBottom: `1px solid ${borderColor}`,
       }}
     >
       <div className="max-w-screen-2xl mx-auto px-6 md:px-12 h-14 flex items-center justify-between">
         <a
           href="#"
-          className="font-sans font-light text-onsu-gold"
-          style={{ fontSize: '11px', letterSpacing: '0.4em', textTransform: 'uppercase' }}
+          style={{
+            fontFamily: 'DM Sans, system-ui, sans-serif',
+            fontWeight: 300,
+            fontSize: '11px',
+            letterSpacing: '0.4em',
+            color: logoColor,
+            textTransform: 'uppercase',
+            textDecoration: 'none',
+          }}
         >
           ONSU
         </a>
@@ -45,8 +82,22 @@ export default function Nav() {
             <a
               key={l.label}
               href={l.href}
-              className="font-sans font-light text-onsu-cream/40 hover:text-onsu-cream transition-colors duration-300"
-              style={{ fontSize: '11px', letterSpacing: '0.25em', textTransform: 'uppercase' }}
+              style={{
+                fontFamily: 'DM Sans, system-ui, sans-serif',
+                fontWeight: 300,
+                fontSize: '11px',
+                letterSpacing: '0.25em',
+                textTransform: 'uppercase',
+                textDecoration: 'none',
+                color: textColor,
+                transition: 'color 0.35s ease',
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLAnchorElement).style.color = textHoverColor;
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLAnchorElement).style.color = textColor;
+              }}
             >
               {l.label}
             </a>
@@ -58,24 +109,43 @@ export default function Nav() {
           className="md:hidden flex flex-col gap-[5px] p-1"
           aria-label="Toggle menu"
         >
-          <span className={`block w-5 h-px bg-onsu-cream transition-all duration-300 origin-center ${open ? 'rotate-45 translate-y-[7px]' : ''}`} />
-          <span className={`block w-5 h-px bg-onsu-cream transition-all duration-300 ${open ? 'opacity-0' : ''}`} />
-          <span className={`block w-5 h-px bg-onsu-cream transition-all duration-300 origin-center ${open ? '-rotate-45 -translate-y-[7px]' : ''}`} />
+          <span
+            className={`block w-5 h-px transition-all duration-300 origin-center ${open ? 'rotate-45 translate-y-[7px]' : ''}`}
+            style={{ background: onDark ? '#FAF7F2' : '#1A1612' }}
+          />
+          <span
+            className={`block w-5 h-px transition-all duration-300 ${open ? 'opacity-0' : ''}`}
+            style={{ background: onDark ? '#FAF7F2' : '#1A1612' }}
+          />
+          <span
+            className={`block w-5 h-px transition-all duration-300 origin-center ${open ? '-rotate-45 -translate-y-[7px]' : ''}`}
+            style={{ background: onDark ? '#FAF7F2' : '#1A1612' }}
+          />
         </button>
       </div>
 
       {open && (
         <div
           className="md:hidden px-6 pt-6 pb-8 flex flex-col gap-5"
-          style={{ background: 'rgba(8, 8, 6, 0.97)', borderTop: '1px solid rgba(242, 237, 228, 0.05)' }}
+          style={{
+            background: onDark ? 'rgba(26, 22, 18, 0.97)' : 'rgba(250, 247, 242, 0.97)',
+            borderTop: `1px solid ${borderColor}`,
+          }}
         >
           {links.map((l) => (
             <a
               key={l.label}
               href={l.href}
               onClick={() => setOpen(false)}
-              className="font-sans font-light text-onsu-cream/50 hover:text-onsu-cream transition-colors duration-300"
-              style={{ fontSize: '11px', letterSpacing: '0.25em', textTransform: 'uppercase' }}
+              style={{
+                fontFamily: 'DM Sans, system-ui, sans-serif',
+                fontWeight: 300,
+                fontSize: '11px',
+                letterSpacing: '0.25em',
+                textTransform: 'uppercase',
+                textDecoration: 'none',
+                color: onDark ? 'rgba(250, 247, 242, 0.55)' : 'rgba(26, 22, 18, 0.5)',
+              }}
             >
               {l.label}
             </a>

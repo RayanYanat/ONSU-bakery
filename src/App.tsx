@@ -9,7 +9,7 @@ import Footer from './components/Footer';
 
 export default function App() {
   return (
-    <div className="bg-onsu-bg">
+    <div style={{ background: '#FAF7F2' }}>
       <CustomCursor />
       <Nav />
       <main>

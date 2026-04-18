@@ -21,7 +21,10 @@ export default function About() {
   }, []);
 
   return (
-    <section id="about" className="bg-onsu-bg">
+    <section
+      id="about"
+      style={{ background: '#FAF7F2' }}
+    >
       <div className={`flex flex-col ${showImage ? 'md:flex-row' : ''} min-h-screen md:h-screen`}>
         {showImage && (
           <div className="w-full md:w-1/2 h-[60vw] md:h-full flex-shrink-0 overflow-hidden">
@@ -29,6 +32,7 @@ export default function About() {
               src="https://cms.factlondon.com/wp-content/uploads/2026/01/ONSU-1.jpg"
               alt="Michael Kwan, Founder of ONSU"
               className="w-full h-full object-cover object-center"
+              style={{ transition: 'transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)' }}
               onError={() => setShowImage(false)}
             />
           </div>
@@ -40,30 +44,45 @@ export default function About() {
         >
           <div className="reveal" style={{ transitionDelay: '0ms' }}>
             <span
-              className="font-sans font-light text-onsu-gold block mb-6"
-              style={{ fontSize: '10px', letterSpacing: '0.4em', textTransform: 'uppercase' }}
+              className="font-sans font-light block mb-7"
+              style={{
+                fontSize: '10px',
+                letterSpacing: '0.4em',
+                textTransform: 'uppercase',
+                color: '#B8965A',
+              }}
             >
               Founder — Michael Kwan
             </span>
           </div>
 
-          <div className="reveal" style={{ transitionDelay: '150ms' }}>
+          <div className="reveal" style={{ transitionDelay: '180ms' }}>
             <h2
-              className="font-serif font-light italic text-onsu-cream mb-10"
-              style={{ fontSize: 'clamp(32px, 4vw, 52px)', lineHeight: 1.2 }}
+              className="font-serif font-light italic mb-10"
+              style={{
+                fontSize: 'clamp(32px, 4vw, 52px)',
+                lineHeight: 1.15,
+                color: '#1A1612',
+              }}
             >
               Trained in the world's finest kitchens.
             </h2>
           </div>
 
-          <div className="reveal" style={{ transitionDelay: '280ms' }}>
+          <div className="reveal" style={{ transitionDelay: '320ms' }}>
             <div
-              className="w-10 h-px mb-10"
-              style={{ background: 'rgba(212, 168, 83, 0.4)' }}
+              className="w-8 h-px mb-10"
+              style={{ background: 'rgba(184, 150, 90, 0.4)' }}
             />
             <p
-              className="font-sans font-light text-onsu-cream/55"
-              style={{ fontSize: '15px', lineHeight: 1.85, letterSpacing: '0.06em', maxWidth: '480px' }}
+              className="font-sans font-light"
+              style={{
+                fontSize: '15px',
+                lineHeight: 1.9,
+                letterSpacing: '0.06em',
+                maxWidth: '480px',
+                color: 'rgba(26, 22, 18, 0.55)',
+              }}
             >
               The Dorchester. The Fat Duck. Ladurée. Hakkasan. UK Sugar Champion. European Cup Champion. Pastry Chef of the Year. ONSU is his first solo venture.
             </p>

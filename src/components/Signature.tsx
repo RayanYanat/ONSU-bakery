@@ -39,7 +39,7 @@ const items = [
   },
 ];
 
-function useReveal(threshold = 0.12) {
+function useReveal(threshold = 0.1) {
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const el = ref.current;
@@ -60,14 +60,17 @@ function useReveal(threshold = 0.12) {
 }
 
 function MenuItem({ item, index }: { item: typeof items[0]; index: number }) {
-  const ref = useReveal(0.08);
+  const ref = useReveal(0.06);
   const imageLeft = index % 2 === 0;
 
   return (
     <div
       ref={ref}
       className="menu-row flex flex-col md:flex-row md:h-[540px]"
-      style={{ flexDirection: imageLeft ? undefined : 'row-reverse' } as React.CSSProperties}
+      style={{
+        flexDirection: imageLeft ? undefined : 'row-reverse',
+        borderTop: '1px solid rgba(250, 247, 242, 0.07)',
+      } as React.CSSProperties}
     >
       <div className="menu-img-wrap w-full md:w-[60%] h-[50vw] md:h-full flex-shrink-0">
         <img
@@ -78,25 +81,38 @@ function MenuItem({ item, index }: { item: typeof items[0]; index: number }) {
         />
       </div>
 
-      <div className="reveal w-full md:w-[40%] flex flex-col justify-center px-8 md:px-14 py-10 md:py-0">
+      <div
+        className="reveal w-full md:w-[40%] flex flex-col justify-center px-8 md:px-14 py-10 md:py-0"
+        style={{ background: '#1A1612' }}
+      >
         <span
-          className="font-sans font-light text-onsu-gold mb-5 block"
-          style={{ fontSize: '10px', letterSpacing: '0.3em' }}
+          className="font-sans font-light block mb-5"
+          style={{ fontSize: '10px', letterSpacing: '0.35em', color: '#B8965A' }}
         >
           {item.num}
         </span>
-        <div className="menu-title-wrap mb-4">
+        <div className="menu-title-wrap mb-5">
           <h3
-            className="font-serif font-light text-onsu-cream"
-            style={{ fontSize: 'clamp(26px, 2.5vw, 36px)', lineHeight: 1.15 }}
+            className="font-serif font-light italic"
+            style={{
+              fontSize: 'clamp(26px, 2.5vw, 38px)',
+              lineHeight: 1.1,
+              color: '#FAF7F2',
+            }}
           >
             {item.name}
           </h3>
           <div className="menu-title-line" />
         </div>
         <p
-          className="font-sans font-light text-onsu-cream/50"
-          style={{ fontSize: '14px', maxWidth: '320px', lineHeight: 1.7, letterSpacing: '0.05em' }}
+          className="font-sans font-light"
+          style={{
+            fontSize: '14px',
+            maxWidth: '320px',
+            lineHeight: 1.8,
+            letterSpacing: '0.06em',
+            color: 'rgba(250, 247, 242, 0.45)',
+          }}
         >
           {item.description}
         </p>
@@ -125,12 +141,16 @@ export default function Signature() {
   }, []);
 
   return (
-    <section id="menu" className="bg-onsu-bg pt-24 md:pt-32">
+    <section id="menu" style={{ background: '#1A1612' }} className="pt-24 md:pt-32">
       <div className="px-6 md:px-12 mb-12 md:mb-16 overflow-hidden">
         <div ref={titleRef} className="reveal">
           <h2
-            className="font-serif font-light italic text-onsu-cream whitespace-nowrap"
-            style={{ fontSize: 'clamp(60px, 8vw, 100px)', lineHeight: 1 }}
+            className="font-serif font-light italic whitespace-nowrap"
+            style={{
+              fontSize: 'clamp(60px, 8vw, 100px)',
+              lineHeight: 1,
+              color: '#FAF7F2',
+            }}
           >
             The Menu
           </h2>

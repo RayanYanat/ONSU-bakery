@@ -27,29 +27,47 @@ export default function Press() {
 
   return (
     <section
-      className="bg-onsu-bg py-20 md:py-28"
-      style={{ borderTop: '1px solid rgba(242, 237, 228, 0.04)' }}
+      id="press"
+      style={{
+        background: '#1A1612',
+        borderTop: '1px solid rgba(250, 247, 242, 0.06)',
+        paddingTop: '5rem',
+        paddingBottom: '5rem',
+      }}
     >
       <div ref={ref} className="max-w-screen-xl mx-auto px-6 md:px-12">
-        <div className="flex flex-col md:flex-row md:items-stretch md:divide-x md:divide-onsu-gold/20">
+        <div
+          className="flex flex-col md:flex-row"
+          style={{ borderTop: '1px solid rgba(250, 247, 242, 0.07)' }}
+        >
           {quotes.map((q, i) => (
             <div
               key={i}
-              className="reveal flex-1 text-center px-6 md:px-12 py-10 md:py-4 flex flex-col items-center justify-center gap-5"
+              className="reveal flex-1 text-center px-6 md:px-12 py-12 md:py-8 flex flex-col items-center justify-center gap-6"
               style={{
-                transitionDelay: `${i * 120}ms`,
-                borderBottom: i < quotes.length - 1 ? '1px solid rgba(212, 168, 83, 0.12)' : undefined,
+                transitionDelay: `${i * 140}ms`,
+                borderRight: i < quotes.length - 1 ? '1px solid rgba(250, 247, 242, 0.07)' : undefined,
+                borderBottom: i < quotes.length - 1 ? '1px solid rgba(250, 247, 242, 0.07)' : undefined,
               }}
             >
               <p
-                className="font-serif font-light italic text-onsu-cream"
-                style={{ fontSize: 'clamp(22px, 2.2vw, 28px)', lineHeight: 1.3 }}
+                className="font-serif font-light italic"
+                style={{
+                  fontSize: 'clamp(20px, 2vw, 26px)',
+                  lineHeight: 1.35,
+                  color: '#FAF7F2',
+                }}
               >
                 {q.text}
               </p>
               <span
-                className="font-sans font-light text-onsu-gold"
-                style={{ fontSize: '11px', letterSpacing: '0.3em', textTransform: 'uppercase' }}
+                className="font-sans font-light"
+                style={{
+                  fontSize: '10px',
+                  letterSpacing: '0.35em',
+                  textTransform: 'uppercase',
+                  color: '#B8965A',
+                }}
               >
                 {q.source}
               </span>

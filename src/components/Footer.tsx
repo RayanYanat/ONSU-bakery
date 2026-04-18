@@ -1,14 +1,23 @@
 export default function Footer() {
   return (
     <footer
-      className="bg-onsu-bg py-8 text-center"
-      style={{ borderTop: '1px solid rgba(242, 237, 228, 0.04)' }}
+      style={{
+        background: '#1A1612',
+        borderTop: '1px solid rgba(250, 247, 242, 0.07)',
+        paddingTop: '2.5rem',
+        paddingBottom: '2.5rem',
+        textAlign: 'center',
+      }}
     >
       <p
-        className="font-sans font-light text-onsu-cream/25"
-        style={{ fontSize: '11px', letterSpacing: '0.15em' }}
+        className="font-sans font-light"
+        style={{
+          fontSize: '11px',
+          letterSpacing: '0.18em',
+          color: 'rgba(250, 247, 242, 0.22)',
+        }}
       >
-        © ONSU 2026 — 55A Dean Street, Soho, London W1D 6AG
+        © ONSU 2026 &nbsp;—&nbsp; 55A Dean Street, Soho, London W1D 6AG
       </p>
     </footer>
   );
