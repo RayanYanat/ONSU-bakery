@@ -1,19 +1,17 @@
 import { useEffect, useRef, useState } from 'react';
 
 export default function About() {
-  const ref = useRef<HTMLDivElement>(null);
-  const [imageVisible, setImageVisible] = useState(true);
+  const textRef = useRef<HTMLDivElement>(null);
+  const [showImage, setShowImage] = useState(true);
 
   useEffect(() => {
-    const el = ref.current;
+    const el = textRef.current;
     if (!el) return;
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          el.querySelectorAll<HTMLElement>('.reveal').forEach((child) => {
-            child.classList.add('is-visible');
-          });
-          observer.unobserve(el);
+          el.querySelectorAll<HTMLElement>('.reveal').forEach((t) => t.classList.add('is-visible'));
+          observer.disconnect();
         }
       },
       { threshold: 0.1 }
@@ -23,39 +21,53 @@ export default function About() {
   }, []);
 
   return (
-    <section id="about" className="bg-onsu-bg py-24 md:py-36">
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <div ref={ref} className={`grid gap-16 md:gap-20 ${imageVisible ? 'grid-cols-1 md:grid-cols-2' : 'grid-cols-1 max-w-2xl'}`}>
-          <div className="flex flex-col justify-center order-2 md:order-1">
-            <div className="reveal" style={{ transitionDelay: '0ms' }}>
-              <h2 className="font-serif font-light text-onsu-cream text-5xl md:text-6xl leading-none mb-4">
-                Michael Kwan
-              </h2>
-              <p className="font-sans font-light tracking-ultra uppercase text-onsu-gold text-[10px] md:text-xs mb-10">
-                Founder &amp; Head Pastry Chef
-              </p>
-            </div>
+    <section id="about" className="bg-onsu-bg">
+      <div className={`flex flex-col ${showImage ? 'md:flex-row' : ''} min-h-screen md:h-screen`}>
+        {showImage && (
+          <div className="w-full md:w-1/2 h-[60vw] md:h-full flex-shrink-0 overflow-hidden">
+            <img
+              src="https://cms.factlondon.com/wp-content/uploads/2026/01/ONSU-1.jpg"
+              alt="Michael Kwan, Founder of ONSU"
+              className="w-full h-full object-cover object-center"
+              onError={() => setShowImage(false)}
+            />
+          </div>
+        )}
 
-            <div className="reveal" style={{ transitionDelay: '100ms' }}>
-              <div className="w-12 h-px bg-onsu-gold mb-10" />
-              <p className="font-sans font-light text-onsu-cream/60 text-base leading-loose">
-                Born in Hong Kong. Trained at The Fat Duck, Ladurée, Hakkasan, and The Dorchester — where he served as Executive Pastry Chef. UK Sugar Champion 2019. European Cup Champion 2022. Pastry Chef of the Year 2024. ONSU is his first solo venture — a precision kitchen in Soho where Asian flavour meets classical European technique.
-              </p>
-            </div>
+        <div
+          ref={textRef}
+          className={`${showImage ? 'md:w-1/2' : 'w-full max-w-2xl mx-auto'} flex flex-col justify-center px-8 md:px-16 lg:px-20 py-16 md:py-0`}
+        >
+          <div className="reveal" style={{ transitionDelay: '0ms' }}>
+            <span
+              className="font-sans font-light text-onsu-gold block mb-6"
+              style={{ fontSize: '10px', letterSpacing: '0.4em', textTransform: 'uppercase' }}
+            >
+              Founder — Michael Kwan
+            </span>
           </div>
 
-          {imageVisible && (
-            <div className="reveal order-1 md:order-2" style={{ transitionDelay: '80ms' }}>
-              <div className="aspect-[3/4] overflow-hidden">
-                <img
-                  src="https://cms.factlondon.com/wp-content/uploads/2026/01/ONSU-1.jpg"
-                  alt="Michael Kwan, Founder of ONSU"
-                  className="w-full h-full object-cover object-top"
-                  onError={() => setImageVisible(false)}
-                />
-              </div>
-            </div>
-          )}
+          <div className="reveal" style={{ transitionDelay: '150ms' }}>
+            <h2
+              className="font-serif font-light italic text-onsu-cream mb-10"
+              style={{ fontSize: 'clamp(32px, 4vw, 52px)', lineHeight: 1.2 }}
+            >
+              Trained in the world's finest kitchens.
+            </h2>
+          </div>
+
+          <div className="reveal" style={{ transitionDelay: '280ms' }}>
+            <div
+              className="w-10 h-px mb-10"
+              style={{ background: 'rgba(212, 168, 83, 0.4)' }}
+            />
+            <p
+              className="font-sans font-light text-onsu-cream/55"
+              style={{ fontSize: '15px', lineHeight: 1.85, letterSpacing: '0.06em', maxWidth: '480px' }}
+            >
+              The Dorchester. The Fat Duck. Ladurée. Hakkasan. UK Sugar Champion. European Cup Champion. Pastry Chef of the Year. ONSU is his first solo venture.
+            </p>
+          </div>
         </div>
       </div>
     </section>

@@ -1,11 +1,15 @@
 export default function Footer() {
   return (
-    <footer className="bg-onsu-bg border-t border-onsu-cream/[0.05] py-8">
-      <div className="max-w-7xl mx-auto px-6 md:px-12 text-center">
-        <p className="font-sans font-light text-onsu-cream/30 text-xs tracking-wide">
-          © ONSU 2026 — Asian Bakery &amp; Patisserie, Soho London
-        </p>
-      </div>
+    <footer
+      className="bg-onsu-bg py-8 text-center"
+      style={{ borderTop: '1px solid rgba(242, 237, 228, 0.04)' }}
+    >
+      <p
+        className="font-sans font-light text-onsu-cream/25"
+        style={{ fontSize: '11px', letterSpacing: '0.15em' }}
+      >
+        © ONSU 2026 — 55A Dean Street, Soho, London W1D 6AG
+      </p>
     </footer>
   );
 }

@@ -18,14 +18,24 @@ export default function Nav() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled ? 'bg-onsu-bg/96 backdrop-blur-sm border-b border-onsu-cream/[0.05]' : 'bg-transparent'
-      }`}
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 50,
+        transition: 'background 0.5s ease, border-color 0.5s ease',
+        background: scrolled ? 'rgba(8, 8, 6, 0.9)' : 'transparent',
+        backdropFilter: scrolled ? 'blur(12px)' : 'none',
+        WebkitBackdropFilter: scrolled ? 'blur(12px)' : 'none',
+        borderBottom: scrolled ? '1px solid rgba(242, 237, 228, 0.04)' : '1px solid transparent',
+      }}
     >
-      <div className="max-w-7xl mx-auto px-6 md:px-12 h-14 flex items-center justify-between">
+      <div className="max-w-screen-2xl mx-auto px-6 md:px-12 h-14 flex items-center justify-between">
         <a
           href="#"
-          className="font-serif text-lg tracking-ultra font-light text-onsu-cream hover:text-onsu-gold transition-colors duration-300"
+          className="font-sans font-light text-onsu-gold"
+          style={{ fontSize: '11px', letterSpacing: '0.4em', textTransform: 'uppercase' }}
         >
           ONSU
         </a>
@@ -35,7 +45,8 @@ export default function Nav() {
             <a
               key={l.label}
               href={l.href}
-              className="font-sans text-[11px] tracking-widest uppercase text-onsu-cream/40 hover:text-onsu-cream transition-colors duration-300"
+              className="font-sans font-light text-onsu-cream/40 hover:text-onsu-cream transition-colors duration-300"
+              style={{ fontSize: '11px', letterSpacing: '0.25em', textTransform: 'uppercase' }}
             >
               {l.label}
             </a>
@@ -47,26 +58,24 @@ export default function Nav() {
           className="md:hidden flex flex-col gap-[5px] p-1"
           aria-label="Toggle menu"
         >
-          <span
-            className={`block w-5 h-px bg-onsu-cream transition-all duration-300 origin-center ${open ? 'rotate-45 translate-y-[7px]' : ''}`}
-          />
-          <span
-            className={`block w-5 h-px bg-onsu-cream transition-all duration-300 ${open ? 'opacity-0' : ''}`}
-          />
-          <span
-            className={`block w-5 h-px bg-onsu-cream transition-all duration-300 origin-center ${open ? '-rotate-45 -translate-y-[7px]' : ''}`}
-          />
+          <span className={`block w-5 h-px bg-onsu-cream transition-all duration-300 origin-center ${open ? 'rotate-45 translate-y-[7px]' : ''}`} />
+          <span className={`block w-5 h-px bg-onsu-cream transition-all duration-300 ${open ? 'opacity-0' : ''}`} />
+          <span className={`block w-5 h-px bg-onsu-cream transition-all duration-300 origin-center ${open ? '-rotate-45 -translate-y-[7px]' : ''}`} />
         </button>
       </div>
 
       {open && (
-        <div className="md:hidden bg-onsu-bg border-t border-onsu-cream/[0.05] px-6 pt-6 pb-8 flex flex-col gap-5">
+        <div
+          className="md:hidden px-6 pt-6 pb-8 flex flex-col gap-5"
+          style={{ background: 'rgba(8, 8, 6, 0.97)', borderTop: '1px solid rgba(242, 237, 228, 0.05)' }}
+        >
           {links.map((l) => (
             <a
               key={l.label}
               href={l.href}
               onClick={() => setOpen(false)}
-              className="font-sans text-xs tracking-widest uppercase text-onsu-cream/50 hover:text-onsu-cream transition-colors duration-300"
+              className="font-sans font-light text-onsu-cream/50 hover:text-onsu-cream transition-colors duration-300"
+              style={{ fontSize: '11px', letterSpacing: '0.25em', textTransform: 'uppercase' }}
             >
               {l.label}
             </a>

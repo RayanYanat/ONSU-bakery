@@ -5,18 +5,21 @@ export default {
     extend: {
       colors: {
         onsu: {
-          bg: '#0a0a0a',
-          cream: '#f5f0e8',
-          gold: '#c9a96e',
+          bg:    '#080806',
+          gold:  '#D4A853',
+          cream: '#F2EDE4',
         },
       },
       fontFamily: {
         serif: ['Cormorant Garamond', 'Georgia', 'serif'],
-        sans: ['DM Sans', 'system-ui', 'sans-serif'],
+        sans:  ['DM Sans', 'system-ui', 'sans-serif'],
       },
       letterSpacing: {
         widest: '0.25em',
-        ultra: '0.45em',
+        ultra:  '0.4em',
+      },
+      transitionTimingFunction: {
+        reveal: 'cubic-bezier(0.16, 1, 0.3, 1)',
       },
     },
   },
