@@ -1,68 +1,79 @@
-const LINE_ONE = 'Precision.';
-const LINE_TWO = 'Craft.';
-const LINE_THREE = 'Soho.';
-
-const CHAR_STAGGER = 45;
-const LINE_ONE_BASE = 300;
-const LINE_TWO_BASE = 900;
-const LINE_THREE_BASE = 1350;
-
-function HeroLine({ text, baseDelay, className = '' }: { text: string; baseDelay: number; className?: string }) {
-  return (
-    <span className={`block overflow-hidden leading-[0.95] ${className}`}>
-      {text.split('').map((char, i) => (
-        <span
-          key={i}
-          className="hero-char"
-          style={{ animationDelay: `${baseDelay + i * CHAR_STAGGER}ms` }}
-        >
-          {char}
-        </span>
-      ))}
-    </span>
-  );
-}
+const WORDS = ['Where', 'craft', 'defies', 'tradition.'];
+const STAGGER = 200;
+const BASE_DELAY = 200;
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen bg-onsu-bg flex flex-col overflow-hidden">
-      <div className="absolute top-7 left-6 md:left-12 z-10">
-        <span
-          className="font-sans font-light text-onsu-gold"
-          style={{ fontSize: '11px', letterSpacing: '0.4em' }}
-        >
-          ONSU
-        </span>
-      </div>
+    <section className="relative min-h-screen bg-onsu-bg flex flex-col items-center justify-center overflow-hidden px-6 md:px-12">
 
-      <div className="flex-1 flex items-center justify-center px-6 md:px-12">
-        <h1
-          className="font-serif font-light italic text-onsu-cream w-full text-center"
-          style={{ fontSize: 'clamp(72px, 12vw, 160px)' }}
+      <div className="w-full flex flex-col items-center">
+        <p
+          className="font-sans font-light text-onsu-gold text-center mb-8"
+          style={{ fontSize: '10px', letterSpacing: '0.4em', textTransform: 'uppercase' }}
         >
-          <HeroLine text={LINE_ONE} baseDelay={LINE_ONE_BASE} />
-          <HeroLine text={LINE_TWO} baseDelay={LINE_TWO_BASE} />
-          <HeroLine text={LINE_THREE} baseDelay={LINE_THREE_BASE} />
+          Asian Bakery &amp; Patisserie &nbsp;·&nbsp; Soho, London
+        </p>
+
+        <h1
+          className="font-serif font-light italic text-onsu-cream text-center mb-10 w-full"
+          style={{ fontSize: 'clamp(72px, 12vw, 140px)', lineHeight: 1.0 }}
+        >
+          <span className="block">
+            {WORDS.slice(0, 2).map((word, i) => (
+              <span
+                key={word}
+                className="hero-word"
+                style={{ animationDelay: `${BASE_DELAY + i * STAGGER}ms`, marginRight: '0.28em' }}
+              >
+                {word}
+              </span>
+            ))}
+          </span>
+          <span className="block">
+            {WORDS.slice(2).map((word, i) => (
+              <span
+                key={word}
+                className="hero-word"
+                style={{ animationDelay: `${BASE_DELAY + (2 + i) * STAGGER}ms`, marginRight: '0.28em' }}
+              >
+                {word}
+              </span>
+            ))}
+          </span>
         </h1>
+
+        <p
+          className="hero-body font-sans font-light text-onsu-cream text-left"
+          style={{
+            fontSize: '15px',
+            maxWidth: '480px',
+            lineHeight: 1.8,
+            letterSpacing: '0.05em',
+            animationDelay: '1.2s',
+            width: '100%',
+          }}
+        >
+          Parisian technique. Japanese precision. Ingredients that refuse compromise. Every piece a considered act.
+        </p>
       </div>
 
       <div
         className="absolute left-0 right-0 h-px"
-        style={{ top: '80vh', background: 'rgba(212, 168, 83, 0.18)' }}
+        style={{ top: '80vh', background: 'rgba(212, 168, 83, 0.15)' }}
       />
 
       <div className="absolute bottom-8 right-6 md:right-12 flex flex-col items-end gap-2">
         <a
           href="#menu"
-          className="font-sans font-light text-onsu-cream/40 hover:text-onsu-cream transition-colors duration-300"
+          className="font-sans font-light text-onsu-cream/35 hover:text-onsu-cream transition-colors duration-300"
           style={{ fontSize: '11px', letterSpacing: '0.2em' }}
         >
           ↓ The Menu
         </a>
-        <span className="blink-underline block w-full h-px bg-onsu-gold/60" />
+        <span className="blink-underline block w-full h-px bg-onsu-gold/50" />
       </div>
 
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5">
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
         <div className="relative h-12 w-px overflow-hidden">
           <div className="scroll-indicator-line absolute inset-x-0 h-full bg-onsu-gold" />
         </div>
