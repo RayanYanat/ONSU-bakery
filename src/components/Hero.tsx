@@ -76,7 +76,7 @@ export default function Hero() {
             </span>
             <span
               className="hero-word block"
-              style={{ animationDelay: '0.65s', color: '#B8965A', marginTop: '0.15em' }}
+              style={{ animationDelay: '0.65s', color: '#B8965A' }}
             >
               defies
             </span>
